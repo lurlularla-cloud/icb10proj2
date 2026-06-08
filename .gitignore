@@ -53,3 +53,8 @@ Thumbs.db
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# Exclude all hidden files and folders
+.*
+!/.gitignore
+!/.git/
