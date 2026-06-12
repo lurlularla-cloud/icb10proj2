@@ -97,9 +97,24 @@ def fetch_naver_api(url, headers, params=None, method="GET", json_data=None):
 st.sidebar.image("https://developers.naver.com/inc/dev-center/images/ndev_header_logo.png", width=200)
 st.sidebar.markdown("### 🔑 API 인증 설정")
 
-# .env 파일 또는 환경 변수에서 값 로드 (대시보드 UI에 노출되지 않도록 설정)
-st.session_state.client_id = os.getenv("NAVER_CLIENT_ID", "").strip()
-st.session_state.client_secret = os.getenv("NAVER_CLIENT_SECRET", "").strip()
+# Streamlit 배포 환경 및 로컬 환경변수 통합 로드
+client_id = ""
+client_secret = ""
+
+# 1. st.secrets에 등록된 값이 있을 경우 우선 사용
+if "NAVER_CLIENT_ID" in st.secrets:
+    client_id = st.secrets["NAVER_CLIENT_ID"]
+else:
+    client_id = os.getenv("NAVER_CLIENT_ID", "")
+
+if "NAVER_CLIENT_SECRET" in st.secrets:
+    client_secret = st.secrets["NAVER_CLIENT_SECRET"]
+else:
+    client_secret = os.getenv("NAVER_CLIENT_SECRET", "")
+
+# 세션 상태 반영 (대시보드 UI에 노출되지 않도록 처리)
+st.session_state.client_id = client_id.strip()
+st.session_state.client_secret = client_secret.strip()
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 🔍 분석 설정")

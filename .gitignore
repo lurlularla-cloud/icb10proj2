@@ -72,3 +72,8 @@ config.yml
 .agents/
 .gemini/
 /brain/
+
+# Streamlit secrets (배포 시 관리되는 로컬 비밀키 설정)
+.streamlit/secrets.toml
+.streamlit/
+
